@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const router = require("./routes/index");
+const { handleErrors } = require("./middleware/errorMiddleware");
+
 const app = express();
 
 //Increase the request body size limit for JSON payloads to 5MB.
@@ -11,6 +13,8 @@ app.use(cors()); //cors policy to allow all origins
 app.use(express.json()); //body parser
 
 app.use("/api", router);
+//use error middleware
+app.use(handleErrors);
 
 const port = 80;
 app.listen(port, function () {
